@@ -1,22 +1,45 @@
-# Blood Bank & Donor Management System — Frontend
+# Blood Bank & Donor Management System — Complete Frontend
 
-A single-page web application (SPA) for managing blood bank operations: donor registration, donation tracking, blood testing, inventory tracking with expiration monitoring, hospital blood requests, and emergency issuing workflows. Built as a college DBMS course project frontend.
+An accessible, responsive, zero-build-step Single Page Application (SPA) for managing blood bank logistics, donor registries, laboratory blood safety screening, inventory shelf life, and clinical transfusion issuing.
 
-## Tech Stack
-- **Architecture**: Vanilla HTML5, CSS3, Modern JavaScript (ES2022 modules)
-- **Frameworks**: None (No React, Vue, Angular, or TypeScript)
-- **Build Step**: Zero build tools required (no Webpack, Vite, or npm scripts needed)
-- **Third-Party Libraries**: Chart.js v4 (vendored locally in `assets/vendor/chart.umd.min.js`)
-- **Offline Capable**: Zero CDN links, system font stack, local inline SVG sprite
-- **Routing**: Single-page application with hash-based router (`#/dashboard`, `#/donors`, etc.)
+Built as a 2nd-year engineering DBMS laboratory project.
 
-## Prerequisites
-- Python 3.x (to serve the static files)
-- Blood Bank backend running on `http://127.0.0.1:5000` (Flask + MySQL)
+---
 
-## Quick Start (Windows PowerShell)
+## 1. Key Features
 
-### 1. Start Backend
+- **Executive Overview Dashboard**: Parallel-loaded KPI metric cards, interactive stock tiles for all 8 blood groups, Chart.js donation trends and request status charts, and a real-time clinical triage alert panel.
+- **Donor Directory & History**: Comprehensive donor records with age validation (18–65), advisory donation eligibility countdown (90-day waiting period), and complete historical donation logs.
+- **Collection Intake & Testing Handover**: Records volume in milliliters, pre-populates default dates, and immediately prompts the attendant to transition the unit to laboratory screening.
+- **Laboratory Safety Verification**: Strict clinical validation (Overall status can ONLY be `Safe` if HIV, Hepatitis, and Malaria are all `Negative`).
+- **Inventory & Expiration Tracking**: Tracks usable vs expired units across blood banks, provides FEFO (First-Expiring-First-Out) visibility, and enforces advisory shelf life by component type (Whole Blood 35d, Packed Red Cells 42d, Platelets 5d, Plasma 365d).
+- **Hospital Blood Requests Queue**: Prioritizes emergency orders by urgency (`Critical` with pulsing alert, `High`, `Normal`, `Low`), shows visual issued/required progress bars, and resolves seed data quirks.
+- **3-Step Blood Issue Wizard**:
+  - *Step 1*: Filter and select active hospital request.
+  - *Step 2*: Screen and select unexpired, lab-verified `Safe` stock sorted FEFO.
+  - *Step 3*: Cross-check compatibility, authorize by staff, execute row-locked transaction, and generate printable clinical slips.
+- **Master Data CRUD Factory**: Reusable architecture for Blood Banks, Hospitals, Patients, and Staff.
+- **Emergency Regional Search**: Finds available blood units across all banks or on-call donors in under 10 seconds with direct `tel:` calling and `mailto:` links.
+- **Theme & Accessibility Settings**: Instant light/dark theme toggle, density mode (comfortable/compact), reduce motion override, and real-time backend API latency diagnostic.
+
+---
+
+## 2. Tech Stack & Engineering Decisions
+
+| Dimension | Decision | Rationale |
+| :--- | :--- | :--- |
+| **Language** | Vanilla JavaScript (ES2022) | Native ES modules run directly in any modern browser without Webpack, Vite, Babel, or npm dependencies. |
+| **CSS Framework** | Custom CSS Custom Properties | Token-driven architecture in `tokens.css`; zero CSS frameworks needed; supports instant light/dark themes. |
+| **Charts** | Chart.js v4 (Vendored) | Exactly one vendored library (`assets/vendor/chart.umd.min.js`), loaded locally once; zero CDN links. |
+| **Icons** | SVG Sprite Sheet | 33 scalable vector icons in `assets/icons/sprite.svg`, rendered with `<use href="...">`. Zero icon web font downloads. |
+| **Security** | Zero `innerHTML` with API Data | All dynamic content is inserted with `textContent` or `h()` element builders, guaranteeing complete protection against Stored/Reflected XSS. |
+| **Routing** | Hash-Based SPA Router | `#/dashboard`, `#/donors/:id` handles bookmarking, deep-linking, query-string filters, and browser back/forward history. |
+
+---
+
+## 3. Quick Start (Windows PowerShell)
+
+### Step 1: Start the Backend (Port 5000)
 ```powershell
 cd blood-bank-backend
 python -m venv venv
@@ -27,65 +50,38 @@ python app.py
 # Backend runs on http://127.0.0.1:5000
 ```
 
-### 2. Start Frontend
+### Step 2: Start the Frontend (Port 5500)
 ```powershell
 cd blood-bank-frontend
 python -m http.server 5500
-# Open http://localhost:5500 in your browser
+# Open http://localhost:5500 in Google Chrome, Microsoft Edge, or Firefox
 ```
 
-## Directory Structure
-```
-blood-bank-frontend/
-  index.html                    # SPA entry point
-  README.md                     # Documentation
-  assets/
-    css/                        # Token-driven stylesheets
-      tokens.css                # Color palette, spacing, typography, z-index
-      base.css                  # CSS reset, typography, accessibility helpers
-      layout.css                # Sidebar, topbar, responsive containers
-      components.css            # Buttons, forms, cards, badges, modal, tables
-      pages.css                 # Specific page styling
-      print.css                 # Issue slip print stylesheet
-    icons/sprite.svg            # 33 line icon SVG sprite
-    vendor/chart.umd.min.js     # Vendored Chart.js v4
-  js/
-    main.js                     # Application entry point
-    config.js                   # Application configuration, enums, constants
-    core/                       # Core infrastructure
-      api.js                    # Fetch wrapper with envelope & error handling
-      router.js                 # Hash SPA router
-      store.js                  # LocalStorage settings store
-      dom.js                    # DOM builder and escape utilities
-      format.js                 # Dates, numbers, ml, relative time formatters
-      validate.js               # Validation logic mirroring backend rules
-      events.js                 # Event bus for data changes
-    ui/                         # Reusable UI components
-      badge.js, chart.js, confirm.js, drawer.js, form.js,
-      icon.js, modal.js, pagination.js, select.js, skeleton.js,
-      table.js, toast.js
-    services/                   # API resource services (fetch wrappers only)
-      bloodbanks.js, bloodtests.js, dashboard.js, donations.js,
-      donors.js, hospitals.js, inventory.js, issues.js,
-      lookups.js, patients.js, requests.js, staff.js
-    pages/                      # Route view controllers
-      dashboard.js, donors.js, donations.js, bloodtests.js,
-      inventory.js, requests.js, issues.js, issuewizard.js,
-      bloodbanks.js, hospitals.js, patients.js, staff.js,
-      crudPage.js, emergency.js, settings.js, styleguide.js
-  docs/                         # Project documentation and viva preparation
-```
+---
 
-## Troubleshooting
+## 4. Documentation Pack for Viva Defense
+
+Comprehensive project documentation is located in `blood-bank-frontend/docs/`:
+
+1. [QUALITY_REPORT.md](docs/QUALITY_REPORT.md): Full accessibility (WCAG AA), security XSS audit, and responsiveness report.
+2. [ARCHITECTURE.md](docs/ARCHITECTURE.md): Multi-tier architecture diagram, database transaction flow, and layer separation.
+3. [SCREEN_TO_TABLE_MAP.md](docs/SCREEN_TO_TABLE_MAP.md): Matrix mapping every UI route to REST endpoints and MySQL tables.
+4. [DEMO_SCRIPT.md](docs/DEMO_SCRIPT.md): Step-by-step 7-minute practical viva demonstration script.
+5. [VIVA_QA.md](docs/VIVA_QA.md): 30 technical viva questions with model answers.
+6. [FUTURE_SCOPE.md](docs/FUTURE_SCOPE.md): Industrial roadmap (JWT RBAC, compatibility cross-matching, SMS alerts).
+
+---
+
+## 5. Troubleshooting
 
 | Problem | Cause | Solution |
 | :--- | :--- | :--- |
-| Cannot reach server on port 5000 | Flask backend not running | Run `python app.py` in `blood-bank-backend/` |
-| Blank page | JavaScript module syntax blocked | Ensure you are serving via `http://localhost:5500`, not `file:///` |
-| CORS errors | Origin mismatch | Ensure backend has `flask-cors` active (standard in backend) |
-| Icons not rendering | SVG Sprite path issue | Verify `assets/icons/sprite.svg` exists and browser supports SVG `<use>` |
+| **"Cannot reach server on port 5000"** | Backend process is not running | Navigate to `blood-bank-backend/` and run `python app.py` |
+| **CORS network error** | Origin not whitelisted | The backend has `flask-cors` active by default. Access via `http://localhost:5500`, not `file:///`. |
+| **Request already fully issued** | Seed data sample quirk | Sample requests in seed data have `units_issued = units_required`. Click *"Mark as Fulfilled?"* or create a new request for demoing. |
+| **Chart not rendering** | Vendored library missing | Verify `assets/vendor/chart.umd.min.js` exists in the assets directory. |
 
-## Academic Scope & Limitations
-- **No Authentication**: The backend provides no auth/JWT. The frontend provides simulated admin access for demo purposes.
-- **Exact Blood Match**: Issues require exact blood group matching as enforced by the backend.
-- **Seed Data**: Sample requests in seed data are already fully issued; create a new request for demoing issues.
+---
+
+## 6. Academic Disclaimer
+*This is an academic DBMS coursework project developed for educational and viva demonstration purposes. It is not approved for live clinical transfusion management.*
