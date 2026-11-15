@@ -42,6 +42,7 @@
     max-width: 100% !important;
   }
 
+  /* Issue slip — new grid layout */
   .issue-slip {
     border: 2px solid #000000;
     padding: 24px;
@@ -54,23 +55,71 @@
     text-align: center;
     font-size: 18pt;
     font-weight: bold;
-    border-bottom: 2px solid #000000;
-    padding-bottom: 12px;
-    margin-bottom: 16px;
+    margin-bottom: 4px;
   }
 
+  .issue-slip__subtitle {
+    text-align: center;
+    font-size: 10pt;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #000000;
+  }
+
+  .issue-slip__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px 24px;
+    margin-bottom: 24px;
+    font-size: 11pt;
+  }
+
+  .issue-slip__item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .issue-slip__label {
+    font-size: 9pt;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .issue-slip__val {
+    font-weight: 600;
+  }
+
+  .issue-slip__signatures {
+    margin-top: 32px;
+    padding-top: 16px;
+    border-top: 1px solid #666666;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .issue-slip__sig-line {
+    border-top: 1px solid #000000;
+    min-width: 140px;
+    text-align: center;
+    padding-top: 4px;
+    font-size: 9pt;
+  }
+
+  .issue-slip__footer {
+    margin-top: 24px;
+    text-align: center;
+    font-size: 9pt;
+    font-style: italic;
+  }
+
+  /* Legacy row layout (drawer slip) */
   .issue-slip__row {
     display: flex;
     justify-content: space-between;
     padding: 6px 0;
     border-bottom: 1px dotted #666666;
-  }
-
-  .issue-slip__footer {
-    margin-top: 32px;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
   }
 
   .issue-slip__disclaimer {

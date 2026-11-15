@@ -33,9 +33,7 @@ export default function renderIssueWizard(params, query) {
   // Stepper Header
   const stepper = h('div', { className: 'wizard-stepper' },
     renderStepIndicator(1, 'Select Request', currentStep),
-    h('div', { style: { width: '40px', height: '2px', backgroundColor: 'var(--color-border)' } }),
     renderStepIndicator(2, 'Select Stock (FEFO)', currentStep),
-    h('div', { style: { width: '40px', height: '2px', backgroundColor: 'var(--color-border)' } }),
     renderStepIndicator(3, 'Verify & Issue', currentStep)
   );
   container.appendChild(stepper);
@@ -46,9 +44,7 @@ export default function renderIssueWizard(params, query) {
   function updateStepper() {
     stepper.replaceChildren(
       renderStepIndicator(1, 'Select Request', currentStep),
-      h('div', { style: { width: '40px', height: '2px', backgroundColor: 'var(--color-border)' } }),
       renderStepIndicator(2, 'Select Stock (FEFO)', currentStep),
-      h('div', { style: { width: '40px', height: '2px', backgroundColor: 'var(--color-border)' } }),
       renderStepIndicator(3, 'Verify & Issue', currentStep)
     );
   }
@@ -63,7 +59,7 @@ export default function renderIssueWizard(params, query) {
 
     return h('div', { className: cls },
       h('div', { className: 'wizard-step__circle' }, isCompleted ? '✓' : String(stepNum)),
-      h('span', { style: { fontSize: 'var(--text-sm)', fontWeight: isActive ? 'bold' : 'normal' } }, label)
+      h('span', { className: 'wizard-step__label' }, label)
     );
   }
 
@@ -422,45 +418,48 @@ export default function renderIssueWizard(params, query) {
 
     const slip = h('div', { className: 'issue-slip' },
       h('div', { className: 'issue-slip__title' }, 'BLOOD ISSUE & TRANSFUSION SLIP'),
-      h('div', { className: 'issue-slip__row' },
-        h('span', {}, 'Issue Reference Number:'),
-        h('span', { style: { fontWeight: 'bold' } }, `#${state.result?.issue_id || 'NEW'}`)
-      ),
-      h('div', { className: 'issue-slip__row' },
-        h('span', {}, 'Hospital / Ward:'),
-        h('span', {}, state.request.hospital_name)
-      ),
-      h('div', { className: 'issue-slip__row' },
-        h('span', {}, 'Recipient Patient:'),
-        h('span', {}, `${state.request.patient_name} (Patient #${state.request.patient_id})`)
-      ),
-      h('div', { className: 'issue-slip__row' },
-        h('span', {}, 'Transfused Blood Group:'),
-        h('span', { style: { fontWeight: 'bold' } }, state.request.blood_group)
-      ),
-      h('div', { className: 'issue-slip__row' },
-        h('span', {}, 'Issuing Blood Bank:'),
-        h('span', {}, state.stock.bank_name)
-      ),
-      h('div', { className: 'issue-slip__row' },
-        h('span', {}, 'Units Issued / Remaining in Stock:'),
-        h('span', {}, `${state.unitsToIssue} unit(s) issued / ${state.result?.units_remaining_in_inventory || 0} left in inventory`)
-      ),
-      h('div', { className: 'issue-slip__row' },
-        h('span', {}, 'Request Fulfillment Status:'),
-        h('span', { style: { fontWeight: 'bold' } }, state.result?.request_fulfilled ? 'FULLY FULFILLED' : 'PARTIALLY FULFILLED')
-      ),
-      h('div', { className: 'issue-slip__footer' },
-        h('div', {},
-          h('div', {}, `Issue Date: ${formatDate(state.issueDate)}`),
-          h('div', {}, `Authorized By Staff #${staffSelectValue()}`)
+      h('div', { className: 'issue-slip__subtitle' }, 'Blood Bank & Donor Management System'),
+      h('div', { className: 'issue-slip__grid' },
+        h('div', { className: 'issue-slip__item' },
+          h('span', { className: 'issue-slip__label' }, 'Issue Ref #'),
+          h('span', { className: 'issue-slip__val' }, `#${state.result?.issue_id || 'NEW'}`)
         ),
-        h('div', { style: { borderTop: '1px solid #000', minWidth: '160px', textAlign: 'center', paddingTop: '4px' } },
-          'Receiving Signature'
+        h('div', { className: 'issue-slip__item' },
+          h('span', { className: 'issue-slip__label' }, 'Hospital / Ward'),
+          h('span', { className: 'issue-slip__val' }, state.request.hospital_name)
+        ),
+        h('div', { className: 'issue-slip__item' },
+          h('span', { className: 'issue-slip__label' }, 'Recipient Patient'),
+          h('span', { className: 'issue-slip__val' }, `${state.request.patient_name} (#${state.request.patient_id})`)
+        ),
+        h('div', { className: 'issue-slip__item' },
+          h('span', { className: 'issue-slip__label' }, 'Blood Group'),
+          h('span', { className: 'issue-slip__val' }, state.request.blood_group)
+        ),
+        h('div', { className: 'issue-slip__item' },
+          h('span', { className: 'issue-slip__label' }, 'Issuing Blood Bank'),
+          h('span', { className: 'issue-slip__val' }, state.stock.bank_name)
+        ),
+        h('div', { className: 'issue-slip__item' },
+          h('span', { className: 'issue-slip__label' }, 'Units Issued'),
+          h('span', { className: 'issue-slip__val' }, `${state.unitsToIssue} unit(s)`)
+        ),
+        h('div', { className: 'issue-slip__item' },
+          h('span', { className: 'issue-slip__label' }, 'Remaining Stock'),
+          h('span', { className: 'issue-slip__val' }, `${state.result?.units_remaining_in_inventory || 0} unit(s)`)
+        ),
+        h('div', { className: 'issue-slip__item' },
+          h('span', { className: 'issue-slip__label' }, 'Fulfillment'),
+          h('span', { className: 'issue-slip__val' }, state.result?.request_fulfilled ? 'FULLY FULFILLED' : 'PARTIALLY FULFILLED')
         )
       ),
-      h('div', { className: 'issue-slip__disclaimer' },
-        'Blood Bank & Donor Management System'
+      h('div', { className: 'issue-slip__signatures' },
+        h('div', { className: 'issue-slip__sig-line' }, `Issued: ${formatDate(state.issueDate)}`),
+        h('div', { className: 'issue-slip__sig-line' }, `Staff #${staffSelectValue()}`),
+        h('div', { className: 'issue-slip__sig-line' }, 'Receiving Signature')
+      ),
+      h('div', { className: 'issue-slip__footer' },
+        'This is a computer-generated document. No signature is required for records.'
       )
     );
 

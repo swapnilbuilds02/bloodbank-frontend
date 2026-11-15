@@ -161,17 +161,15 @@ export default function renderDashboard() {
     }
 
     if (alerts.length > 0) {
-      const banner = h('div', {
-        className: 'card',
-        style: {
-          borderLeft: '4px solid var(--color-danger)',
-          padding: 'var(--space-4)',
-          backgroundColor: 'var(--color-surface)'
-        }
-      },
-        h('h3', { style: { fontSize: 'var(--text-sm)', fontWeight: 'bold', color: 'var(--color-danger)', marginBottom: 'var(--space-2)' } }, 'Needs attention:'),
-        h('ul', { style: { listStyle: 'disc', paddingLeft: 'var(--space-5)', fontSize: 'var(--text-xs)', display: 'flex', flexDirection: 'column', gap: '4px' } },
-          ...alerts.slice(0, 4).map(a => h('li', { style: { color: a.type === 'danger' ? 'var(--color-danger)' : 'var(--color-warning)' } }, a.msg))
+      const banner = h('div', { className: 'needs-attention-card' },
+        h('div', { className: 'needs-attention-title' }, '⚠ Needs Attention'),
+        h('div', { className: 'needs-attention-list' },
+          ...alerts.slice(0, 4).map(a =>
+            h('div', {
+              className: 'needs-attention-item',
+              style: { color: a.type === 'danger' ? 'var(--color-danger)' : 'var(--color-warning)' }
+            }, a.msg)
+          )
         )
       );
       mount.appendChild(banner);
@@ -193,8 +191,10 @@ export default function renderDashboard() {
       const card = h('a', { href: k.link, className: 'stat-card' },
         h('div', { className: 'stat-card__top' },
           h('span', { className: 'stat-card__label' }, k.label),
-          h('svg', { className: 'stat-card__icon', width: '20', height: '20' },
-            h('use', { href: `assets/icons/sprite.svg#${k.icon}` })
+          h('div', { className: 'stat-card__icon-wrap' },
+            h('svg', { className: 'stat-card__icon', width: '20', height: '20' },
+              h('use', { href: `assets/icons/sprite.svg#${k.icon}` })
+            )
           )
         ),
         h('div', { className: 'stat-card__value' }, formatNumber(k.value)),
@@ -231,6 +231,9 @@ export default function renderDashboard() {
       },
         h('div', { className: 'blood-tile__group' }, bloodGroupBadge(g)),
         h('div', { className: 'blood-tile__units' }, String(units)),
+        h('div', { className: 'blood-tile__bar-wrap' },
+          h('div', { className: 'blood-tile__bar', style: { width: `${Math.min((units / 20) * 100, 100)}%`, backgroundColor: statusColor } })
+        ),
         h('div', { className: 'blood-tile__status', style: { color: statusColor } }, status)
       );
       mount.appendChild(tile);

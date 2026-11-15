@@ -16,6 +16,7 @@ html {
   background-color: var(--color-bg);
   -webkit-text-size-adjust: 100%;
   tab-size: 4;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -27,6 +28,12 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Selection highlight */
+::selection {
+  background-color: var(--color-primary-surface);
+  color: var(--color-text);
+}
+
 /* Headings */
 h1, h2, h3, h4, h5, h6 {
   color: var(--color-text);
@@ -34,8 +41,8 @@ h1, h2, h3, h4, h5, h6 {
   line-height: var(--leading-tight);
 }
 
-h1 { font-size: var(--text-3xl); font-weight: var(--font-bold); }
-h2 { font-size: var(--text-2xl); }
+h1 { font-size: var(--text-3xl); font-weight: var(--font-bold); letter-spacing: -0.02em; }
+h2 { font-size: var(--text-2xl); letter-spacing: -0.01em; }
 h3 { font-size: var(--text-xl); }
 h4 { font-size: var(--text-lg); }
 h5 { font-size: var(--text-base); }
@@ -54,6 +61,12 @@ a {
 
 a:hover {
   text-decoration: underline;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
 
 button, input, select, textarea {
@@ -77,6 +90,33 @@ button {
 
 :focus:not(:focus-visible) {
   outline: none;
+}
+
+/* Custom scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-border-strong);
+  border-radius: var(--radius-full);
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-text-tertiary);
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border-strong) transparent;
 }
 
 /* Skip link for screen readers */
@@ -120,13 +160,4 @@ button {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-}
-
-[data-reduce-motion="true"] *,
-[data-reduce-motion="true"] *::before,
-[data-reduce-motion="true"] *::after {
-  animation-duration: 0.01ms !important;
-  animation-iteration-count: 1 !important;
-  transition-duration: 0.01ms !important;
-  scroll-behavior: auto !important;
 }

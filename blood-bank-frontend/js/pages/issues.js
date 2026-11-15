@@ -80,17 +80,42 @@ function openSlipDrawer(row) {
   const content = h('div', { style: { display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' } },
     h('div', { className: 'issue-slip', style: { border: '1px solid var(--color-border)', margin: 0 } },
       h('div', { className: 'issue-slip__title', style: { fontSize: 'var(--text-lg)' } }, 'BLOOD ISSUE RECEIPT'),
-      h('div', { className: 'issue-slip__row' }, h('span', {}, 'Issue ID:'), h('span', { style: { fontWeight: 'bold' } }, `#${row.issue_id}`)),
-      h('div', { className: 'issue-slip__row' }, h('span', {}, 'Date:'), h('span', {}, formatDate(row.issue_date))),
-      h('div', { className: 'issue-slip__row' }, h('span', {}, 'Hospital:'), h('span', {}, row.hospital_name || 'Hospital')),
-      h('div', { className: 'issue-slip__row' }, h('span', {}, 'Patient:'), h('span', {}, row.patient_name || `Patient #${row.patient_id}`)),
-      h('div', { className: 'issue-slip__row' }, h('span', {}, 'Blood Group:'), bloodGroupBadge(row.blood_group)),
-      h('div', { className: 'issue-slip__row' }, h('span', {}, 'Quantity:'), h('span', { style: { fontWeight: 'bold' } }, pluralize(row.units_issued, 'unit'))),
-      h('div', { className: 'issue-slip__row' }, h('span', {}, 'Stock Inventory:'), h('span', {}, `#${row.inventory_id}`)),
-      h('div', { className: 'issue-slip__row' }, h('span', {}, 'Issuing Staff:'), h('span', {}, row.staff_name || `Staff #${row.staff_id}`)),
-      h('div', { className: 'issue-slip__disclaimer', style: { marginTop: 'var(--space-4)' } },
-        'Blood Bank & Donor Management System'
-      )
+      h('div', { className: 'issue-slip__subtitle' }, 'Blood Bank & Donor Management System'),
+      h('div', { className: 'issue-slip__grid' },
+        h('div', { className: 'issue-slip__item' },
+          h('span', { className: 'issue-slip__label' }, 'Issue ID'),
+          h('span', { className: 'issue-slip__val' }, `#${row.issue_id}`)
+        ),
+        h('div', { className: 'issue-slip__item' },
+          h('span', { className: 'issue-slip__label' }, 'Date'),
+          h('span', { className: 'issue-slip__val' }, formatDate(row.issue_date))
+        ),
+        h('div', { className: 'issue-slip__item' },
+          h('span', { className: 'issue-slip__label' }, 'Hospital'),
+          h('span', { className: 'issue-slip__val' }, row.hospital_name || 'Hospital')
+        ),
+        h('div', { className: 'issue-slip__item' },
+          h('span', { className: 'issue-slip__label' }, 'Patient'),
+          h('span', { className: 'issue-slip__val' }, row.patient_name || `Patient #${row.patient_id}`)
+        ),
+        h('div', { className: 'issue-slip__item' },
+          h('span', { className: 'issue-slip__label' }, 'Blood Group'),
+          h('span', { className: 'issue-slip__val' }, row.blood_group)
+        ),
+        h('div', { className: 'issue-slip__item' },
+          h('span', { className: 'issue-slip__label' }, 'Units Issued'),
+          h('span', { className: 'issue-slip__val' }, pluralize(row.units_issued, 'unit'))
+        ),
+        h('div', { className: 'issue-slip__item' },
+          h('span', { className: 'issue-slip__label' }, 'Stock Inventory'),
+          h('span', { className: 'issue-slip__val' }, `#${row.inventory_id}`)
+        ),
+        h('div', { className: 'issue-slip__item' },
+          h('span', { className: 'issue-slip__label' }, 'Issued By'),
+          h('span', { className: 'issue-slip__val' }, row.staff_name || `Staff #${row.staff_id}`)
+        )
+      ),
+      h('div', { className: 'issue-slip__footer' }, 'Blood Bank & Donor Management System')
     ),
     h('button', {
       className: 'btn btn--primary',
