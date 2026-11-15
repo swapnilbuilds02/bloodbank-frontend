@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.documentElement.setAttribute('data-theme', theme);
 
   // --- Theme toggle ---
-  const themeToggle = document.getElementById('theme-toggle');
+  const themeToggle = document.getElementById('theme-toggle-btn') || document.getElementById('theme-toggle');
   if (themeToggle) {
     themeToggle.addEventListener('click', () => {
       const current = document.documentElement.getAttribute('data-theme');
@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
     app.appendChild(p);
   }
 
-  // --- Search shortcut: '/' focuses quick-search ---
+  // --- Search shortcut: '/' focuses search ---
   document.addEventListener('keydown', (e) => {
     if (
       e.key === '/' &&
@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
       !document.activeElement.isContentEditable
     ) {
       e.preventDefault();
-      const searchInput = document.getElementById('quick-search');
+      const searchInput = document.getElementById('global-search') || document.getElementById('quick-search');
       if (searchInput) searchInput.focus();
     }
   });

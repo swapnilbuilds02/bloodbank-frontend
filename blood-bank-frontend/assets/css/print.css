@@ -1,3 +1,82 @@
 /**
- * print.css — Stylesheet module.
+ * print.css — Stylesheet exclusively applied during print operations.
+ * Renders clinical issue slips cleanly while hiding all navigation chrome.
  */
+
+@media print {
+  *, *::before, *::after {
+    background: transparent !important;
+    color: #000000 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  .sidebar,
+  .topbar,
+  .footer,
+  .offline-banner,
+  .toast-container,
+  .modal-backdrop,
+  .drawer-backdrop,
+  .toolbar,
+  .pagination,
+  .btn:not(.btn--print-only),
+  .skip-link {
+    display: none !important;
+  }
+
+  body {
+    font-size: 12pt;
+    line-height: 1.5;
+    color: #000000;
+    background-color: #ffffff;
+  }
+
+  .main-wrapper {
+    margin-left: 0 !important;
+    width: 100% !important;
+  }
+
+  .main-content {
+    padding: 0 !important;
+    max-width: 100% !important;
+  }
+
+  .issue-slip {
+    border: 2px solid #000000;
+    padding: 24px;
+    margin: 20px auto;
+    max-width: 650px;
+    page-break-inside: avoid;
+  }
+
+  .issue-slip__title {
+    text-align: center;
+    font-size: 18pt;
+    font-weight: bold;
+    border-bottom: 2px solid #000000;
+    padding-bottom: 12px;
+    margin-bottom: 16px;
+  }
+
+  .issue-slip__row {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    border-bottom: 1px dotted #666666;
+  }
+
+  .issue-slip__footer {
+    margin-top: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .issue-slip__disclaimer {
+    margin-top: 24px;
+    text-align: center;
+    font-size: 9pt;
+    font-style: italic;
+  }
+}
