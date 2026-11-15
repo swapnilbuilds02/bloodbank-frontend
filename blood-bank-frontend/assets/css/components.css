@@ -48,10 +48,12 @@
   color: var(--color-text-inverse);
   border-color: var(--color-primary-dark);
 }
+
 .btn--primary:hover {
   background: linear-gradient(135deg, var(--color-primary-hover) 0%, var(--color-primary-dark) 100%);
   box-shadow: 0 4px 12px var(--color-primary-glow);
 }
+
 .btn--primary:active {
   background-color: var(--color-primary-active);
 }
@@ -61,6 +63,7 @@
   color: var(--color-text);
   border-color: var(--color-border-strong);
 }
+
 .btn--secondary:hover {
   background-color: var(--color-bg-secondary);
   border-color: var(--color-text-tertiary);
@@ -72,6 +75,7 @@
   color: var(--color-text-inverse);
   border-color: var(--color-danger-hover);
 }
+
 .btn--danger:hover {
   background-color: var(--color-danger-hover);
   box-shadow: 0 4px 12px var(--color-danger-bg);
@@ -82,6 +86,7 @@
   color: var(--color-text-secondary);
   box-shadow: none;
 }
+
 .btn--ghost:hover {
   background-color: var(--color-bg-secondary);
   color: var(--color-text);
@@ -370,35 +375,50 @@
   color: var(--color-success);
   border: 1px solid var(--color-success-border);
 }
-.badge--success .badge-dot { background-color: var(--color-success); }
+
+.badge--success .badge-dot {
+  background-color: var(--color-success);
+}
 
 .badge--warning {
   background-color: var(--color-warning-bg);
   color: var(--color-warning);
   border: 1px solid var(--color-warning-border);
 }
-.badge--warning .badge-dot { background-color: var(--color-warning); }
+
+.badge--warning .badge-dot {
+  background-color: var(--color-warning);
+}
 
 .badge--danger {
   background-color: var(--color-danger-bg);
   color: var(--color-danger);
   border: 1px solid var(--color-danger-border);
 }
-.badge--danger .badge-dot { background-color: var(--color-danger); }
+
+.badge--danger .badge-dot {
+  background-color: var(--color-danger);
+}
 
 .badge--info {
   background-color: var(--color-info-bg);
   color: var(--color-info);
   border: 1px solid var(--color-info-border);
 }
-.badge--info .badge-dot { background-color: var(--color-info); }
+
+.badge--info .badge-dot {
+  background-color: var(--color-info);
+}
 
 .badge--neutral {
   background-color: var(--color-bg-secondary);
   color: var(--color-text-secondary);
   border: 1px solid var(--color-border);
 }
-.badge--neutral .badge-dot { background-color: var(--color-text-tertiary); }
+
+.badge--neutral .badge-dot {
+  background-color: var(--color-text-tertiary);
+}
 
 /* Pulse animation for critical urgency */
 .badge--pulse {
@@ -406,8 +426,17 @@
 }
 
 @keyframes badge-pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.75; transform: scale(0.97); }
+
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.75;
+    transform: scale(0.97);
+  }
 }
 
 /* Blood Group Chips */
@@ -423,14 +452,53 @@
   border: 1px solid transparent;
 }
 
-.chip-blood--a-pos { background-color: var(--bg-chip-a-pos); color: var(--text-chip-a-pos); border-color: var(--border-chip-a-pos); }
-.chip-blood--a-neg { background-color: var(--bg-chip-a-neg); color: var(--text-chip-a-neg); border-color: var(--border-chip-a-neg); }
-.chip-blood--b-pos { background-color: var(--bg-chip-b-pos); color: var(--text-chip-b-pos); border-color: var(--border-chip-b-pos); }
-.chip-blood--b-neg { background-color: var(--bg-chip-b-neg); color: var(--text-chip-b-neg); border-color: var(--border-chip-b-neg); }
-.chip-blood--ab-pos { background-color: var(--bg-chip-ab-pos); color: var(--text-chip-ab-pos); border-color: var(--border-chip-ab-pos); }
-.chip-blood--ab-neg { background-color: var(--bg-chip-ab-neg); color: var(--text-chip-ab-neg); border-color: var(--border-chip-ab-neg); }
-.chip-blood--o-pos { background-color: var(--bg-chip-o-pos); color: var(--text-chip-o-pos); border-color: var(--border-chip-o-pos); }
-.chip-blood--o-neg { background-color: var(--bg-chip-o-neg); color: var(--text-chip-o-neg); border-color: var(--border-chip-o-neg); }
+.chip-blood--a-pos {
+  background-color: var(--bg-chip-a-pos);
+  color: var(--text-chip-a-pos);
+  border-color: var(--border-chip-a-pos);
+}
+
+.chip-blood--a-neg {
+  background-color: var(--bg-chip-a-neg);
+  color: var(--text-chip-a-neg);
+  border-color: var(--border-chip-a-neg);
+}
+
+.chip-blood--b-pos {
+  background-color: var(--bg-chip-b-pos);
+  color: var(--text-chip-b-pos);
+  border-color: var(--border-chip-b-pos);
+}
+
+.chip-blood--b-neg {
+  background-color: var(--bg-chip-b-neg);
+  color: var(--text-chip-b-neg);
+  border-color: var(--border-chip-b-neg);
+}
+
+.chip-blood--ab-pos {
+  background-color: var(--bg-chip-ab-pos);
+  color: var(--text-chip-ab-pos);
+  border-color: var(--border-chip-ab-pos);
+}
+
+.chip-blood--ab-neg {
+  background-color: var(--bg-chip-ab-neg);
+  color: var(--text-chip-ab-neg);
+  border-color: var(--border-chip-ab-neg);
+}
+
+.chip-blood--o-pos {
+  background-color: var(--bg-chip-o-pos);
+  color: var(--text-chip-o-pos);
+  border-color: var(--border-chip-o-pos);
+}
+
+.chip-blood--o-neg {
+  background-color: var(--bg-chip-o-neg);
+  color: var(--text-chip-o-neg);
+  border-color: var(--border-chip-o-neg);
+}
 
 /* ==========================================================================
    Tabs
@@ -521,6 +589,7 @@
 
 /* Responsive Table: Card layout on mobile */
 @media (max-width: 640px) {
+
   .data-table,
   .data-table tbody,
   .data-table tr,
@@ -754,8 +823,13 @@
 }
 
 @keyframes modal-fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 .modal {
@@ -773,8 +847,15 @@
 }
 
 @keyframes modal-slide-in {
-  from { transform: translateY(12px) scale(0.98); opacity: 0; }
-  to { transform: translateY(0) scale(1); opacity: 1; }
+  from {
+    transform: translateY(12px) scale(0.98);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
 }
 
 .modal__header {
@@ -851,8 +932,13 @@
 }
 
 @keyframes drawer-slide {
-  from { transform: translateX(100%); }
-  to { transform: translateX(0); }
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
 }
 
 .drawer__header {
@@ -900,8 +986,15 @@
 }
 
 @keyframes toast-in {
-  from { transform: translateY(12px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+  from {
+    transform: translateY(12px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 .toast--success {
@@ -977,6 +1070,11 @@
 }
 
 @keyframes skeleton-shimmer {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
 }

@@ -48,7 +48,7 @@ export default function renderIssues(params, query) {
       {
         key: 'blood_group',
         label: 'Group',
-        render: (g) => bloodGroupBadge(g)
+        render: (g, row) => bloodGroupBadge(g || row?.requested_blood_group || row?.inventory_blood_group)
       },
       {
         key: 'inventory_id',
@@ -100,7 +100,7 @@ function openSlipDrawer(row) {
         ),
         h('div', { className: 'issue-slip__item' },
           h('span', { className: 'issue-slip__label' }, 'Blood Group'),
-          h('span', { className: 'issue-slip__val' }, row.blood_group)
+          h('span', { className: 'issue-slip__val' }, row.blood_group ?? row.requested_blood_group ?? row.inventory_blood_group ?? '—')
         ),
         h('div', { className: 'issue-slip__item' },
           h('span', { className: 'issue-slip__label' }, 'Units Issued'),

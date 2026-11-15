@@ -146,7 +146,7 @@ export default function renderDashboard() {
     if (bloodData && Array.isArray(bloodData)) {
       BLOOD_GROUPS.forEach(g => {
         const item = bloodData.find(b => b.blood_group === g);
-        const units = item ? item.total_units : 0;
+        const units = item ? (item.units ?? item.total_units ?? 0) : 0;
         if (units === 0) {
           alerts.push({ msg: `Zero stock alert: Blood group ${g} is completely depleted.`, type: 'danger' });
         } else if (units <= threshold) {
@@ -181,10 +181,10 @@ export default function renderDashboard() {
     const kpis = [
       { label: 'Total Donors', value: d.total_donors || 0, icon: 'users', link: '#/donors' },
       { label: 'Total Donations', value: d.total_donations || 0, icon: 'syringe', link: '#/donations' },
-      { label: 'Inventory Units', value: d.total_inventory_units || 0, icon: 'package', link: '#/inventory', subtitle: `${d.usable_units || 0} usable (${d.usable_percentage || 0}%)` },
-      { label: 'Pending Requests', value: d.pending_requests || 0, icon: 'clipboard', link: '#/requests?request_status=Pending' },
+      { label: 'Inventory Units', value: d.total_inventory_units || 0, icon: 'package', link: '#/inventory', subtitle: `${d.usable_inventory_units ?? d.usable_units ?? 0} usable` },
+      { label: 'Pending Requests', value: d.total_pending_requests ?? d.pending_requests ?? 0, icon: 'clipboard', link: '#/requests?request_status=Pending' },
       { label: 'Critical Requests', value: d.critical_requests || 0, icon: 'alert-triangle', link: '#/requests?urgency=Critical' },
-      { label: 'Total Issues', value: d.total_issues || 0, icon: 'send', link: '#/issues' }
+      { label: 'Total Issues', value: d.total_issued_units ?? d.total_issues ?? 0, icon: 'send', link: '#/issues' }
     ];
 
     kpis.forEach(k => {
@@ -210,8 +210,8 @@ export default function renderDashboard() {
 
     BLOOD_GROUPS.forEach(g => {
       const item = (list || []).find(b => b.blood_group === g);
-      const units = item ? item.total_units : 0;
-      const usable = item ? item.usable_units : 0;
+      const units = item ? (item.units ?? item.total_units ?? 0) : 0;
+      const usable = item ? (item.usable_units ?? 0) : 0;
 
       let status = 'Healthy';
       let statusColor = 'var(--color-success)';
@@ -251,7 +251,7 @@ export default function renderDashboard() {
     card.appendChild(body);
 
     const labels = (data || []).map(d => d.period || d.donation_date || 'Date');
-    const counts = (data || []).map(d => d.total_donations || d.count || 0);
+    const counts = (data || []).map(d => d.donations ?? d.total_donations ?? d.count ?? 0);
 
     const chartInstance = createChart({
       type: 'bar',
