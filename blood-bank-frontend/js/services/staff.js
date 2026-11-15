@@ -1,6 +1,8 @@
-/**
- * services/staff.js — Service wrapper for staff endpoints.
- * @module services/staff
- */
+import { createResource } from './resourceFactory.js';
+import { api } from '../core/api.js';
 
-export default {};
+const base = createResource('/staff', 'staff');
+export default {
+  ...base,
+  getDonations: (id, signal) => api(`/staff/${id}/donations`, { method: 'GET', signal })
+};

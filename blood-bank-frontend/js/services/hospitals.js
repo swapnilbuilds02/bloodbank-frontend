@@ -1,6 +1,8 @@
-/**
- * services/hospitals.js — Service wrapper for hospitals endpoints.
- * @module services/hospitals
- */
+import { createResource } from './resourceFactory.js';
+import { api } from '../core/api.js';
 
-export default {};
+const base = createResource('/hospitals', 'hospitals');
+export default {
+  ...base,
+  getRequests: (id, signal) => api(`/hospitals/${id}/requests`, { method: 'GET', signal })
+};

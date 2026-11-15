@@ -1,6 +1,9 @@
-/**
- * services/requests.js — Service wrapper for requests endpoints.
- * @module services/requests
- */
+import { createResource } from './resourceFactory.js';
+import { api } from '../core/api.js';
 
-export default {};
+const base = createResource('/requests', 'requests');
+export default {
+  ...base,
+  pending: (signal) => api('/requests/pending', { method: 'GET', signal }),
+  summary: (signal) => api('/requests/summary', { method: 'GET', signal })
+};

@@ -1,6 +1,9 @@
-/**
- * services/bloodbanks.js — Service wrapper for bloodbanks endpoints.
- * @module services/bloodbanks
- */
+import { createResource } from './resourceFactory.js';
+import { api } from '../core/api.js';
 
-export default {};
+const base = createResource('/bloodbanks', 'bloodbanks');
+export default {
+  ...base,
+  getInventory: (id, signal) => api(`/bloodbanks/${id}/inventory`, { method: 'GET', signal }),
+  getStaff: (id, signal) => api(`/bloodbanks/${id}/staff`, { method: 'GET', signal })
+};

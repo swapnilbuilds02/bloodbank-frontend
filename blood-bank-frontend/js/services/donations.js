@@ -1,6 +1,8 @@
-/**
- * services/donations.js — Service wrapper for donations endpoints.
- * @module services/donations
- */
+import { createResource } from './resourceFactory.js';
+import { api } from '../core/api.js';
 
-export default {};
+const base = createResource('/donations', 'donations');
+export default {
+  ...base,
+  history: (query, signal) => api('/donations/history', { method: 'GET', query, signal })
+};
