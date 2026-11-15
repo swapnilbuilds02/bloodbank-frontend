@@ -99,3 +99,4 @@ The CSP header in `index.html` restricts runtime execution:
    - Duplicate donor email or foreign key deletion attempts display clear, human-readable notifications explaining the exact referential conflict.
 3. **Seed Data Quirk**:
    - Sample requests with 0 remaining units display the *"Mark as Fulfilled"* interactive helper, preventing user confusion during viva demonstrations.
+

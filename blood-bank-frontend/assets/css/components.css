@@ -397,11 +397,7 @@
   border-bottom: none;
 }
 
-/* Dense table mode */
-[data-density="compact"] .data-table th,
-[data-density="compact"] .data-table td {
-  padding: var(--space-2) var(--space-3);
-}
+/* Table Header and Rows */
 
 /* Responsive Table: Card layout on mobile */
 @media (max-width: 640px) {

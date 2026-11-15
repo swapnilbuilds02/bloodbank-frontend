@@ -103,23 +103,15 @@ export default function renderDashboard() {
       bloodTilesMount.replaceChildren(renderErrorCard('Blood Group Stock', () => loadAllSections()));
     }
 
-    // 4. Charts: Donation Trends & Request Summary
+    // 4. Chart: Donation Trends
     chartsRow.innerHTML = '';
     const trendsCard = h('div', { className: 'card' });
-    const requestsCard = h('div', { className: 'card' });
     chartsRow.appendChild(trendsCard);
-    chartsRow.appendChild(requestsCard);
 
     if (trendsRes.status === 'fulfilled' && trendsRes.value.data) {
       renderTrendsChart(trendsCard, trendsRes.value.data);
     } else {
       trendsCard.replaceChildren(renderErrorCard('Donation Trends', () => loadAllSections()));
-    }
-
-    if (requestsRes.status === 'fulfilled' && requestsRes.value.data) {
-      renderRequestsSummaryChart(requestsCard, requestsRes.value.data);
-    } else {
-      requestsCard.replaceChildren(renderErrorCard('Request Overview', () => loadAllSections()));
     }
 
     // 5. Recent Activity: Donations & Requests

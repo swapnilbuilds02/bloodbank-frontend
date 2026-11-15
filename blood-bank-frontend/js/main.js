@@ -26,18 +26,12 @@ import renderBloodBanks from './pages/bloodbanks.js';
 import renderHospitals from './pages/hospitals.js';
 import renderPatients from './pages/patients.js';
 import renderStaff from './pages/staff.js';
-import renderEmergency from './pages/emergency.js';
 import renderSettings from './pages/settings.js';
-import renderStyleguide from './pages/styleguide.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-  // 1. Initialize Appearance and Theme from settings
+  // 1. Initialize Theme from settings
   const settings = getSettings();
   document.documentElement.setAttribute('data-theme', settings.theme || 'light');
-  document.documentElement.setAttribute('data-density', settings.density || 'comfortable');
-  if (settings.reduceMotion) {
-    document.documentElement.setAttribute('data-reduce-motion', 'true');
-  }
 
   // 2. Build Sidebar Navigation Groups
   const navContainer = document.getElementById('main-nav');
@@ -134,31 +128,8 @@ document.addEventListener('DOMContentLoaded', () => {
     ) {
       e.preventDefault();
       globalSearch?.focus();
-    } else if (e.key === '?' && !['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement?.tagName)) {
-      e.preventDefault();
-      showShortcutsModal();
     }
   });
-
-  function showShortcutsModal() {
-    openModal({
-      title: 'Keyboard Shortcuts',
-      content: h('div', { style: { display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' } },
-        h('div', { style: { display: 'flex', justifyContent: 'space-between' } },
-          h('span', {}, 'Focus Quick Search'),
-          h('kbd', { style: { padding: '2px 8px', background: 'var(--color-bg-secondary)', borderRadius: '4px' } }, '/')
-        ),
-        h('div', { style: { display: 'flex', justifyContent: 'space-between' } },
-          h('span', {}, 'Show Keyboard Shortcuts'),
-          h('kbd', { style: { padding: '2px 8px', background: 'var(--color-bg-secondary)', borderRadius: '4px' } }, '?')
-        ),
-        h('div', { style: { display: 'flex', justifyContent: 'space-between' } },
-          h('span', {}, 'Close Modal / Drawer'),
-          h('kbd', { style: { padding: '2px 8px', background: 'var(--color-bg-secondary)', borderRadius: '4px' } }, 'Esc')
-        )
-      )
-    });
-  }
 
   // 4. API Health Check and Status Monitoring
   async function checkApiHealth() {
@@ -234,9 +205,7 @@ document.addEventListener('DOMContentLoaded', () => {
     { path: '/patients/:id', title: 'Patient Details', handler: renderPatients },
     { path: '/staff', title: 'Staff', handler: renderStaff },
     { path: '/staff/:id', title: 'Staff Details', handler: renderStaff },
-    { path: '/emergency', title: 'Emergency Search', handler: renderEmergency },
-    { path: '/settings', title: 'Settings', handler: renderSettings },
-    { path: '/styleguide', title: 'Style Guide', handler: renderStyleguide }
+    { path: '/settings', title: 'Settings', handler: renderSettings }
   ];
 
   function render404() {

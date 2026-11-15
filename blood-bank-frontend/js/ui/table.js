@@ -8,7 +8,6 @@
 import { h, debounce } from '../core/dom.js';
 import { pagination } from './pagination.js';
 import { skeletonTable } from './skeleton.js';
-import { MAX_EXPORT_ROWS } from '../config.js';
 import { notify } from './toast.js';
 
 /**
@@ -51,11 +50,6 @@ export function dataTable(config) {
     value: currentSearch
   });
 
-  const exportBtn = h('button', {
-    className: 'btn btn--secondary btn--sm',
-    onClick: () => handleExportCsv()
-  }, 'Export CSV');
-
   const refreshBtn = h('button', {
     className: 'btn btn--ghost btn--sm',
     ariaLabel: 'Refresh data',
@@ -97,7 +91,6 @@ export function dataTable(config) {
     h('div', { className: 'toolbar__search' }, searchInput),
     h('div', { className: 'toolbar__actions' },
       ...filterControls,
-      exportBtn,
       refreshBtn
     )
   );
@@ -328,65 +321,6 @@ export function dataTable(config) {
           syncUrlAndLoad();
         }
       }));
-    }
-  }
-
-  async function handleExportCsv() {
-    try {
-      notify.info('Preparing CSV export (all pages)...');
-
-      const allRows = [];
-      let page = 1;
-      let totalPages = 1;
-
-      while (page <= totalPages && allRows.length < MAX_EXPORT_ROWS) {
-        const res = await config.fetchPage({
-          page,
-          limit: 200,
-          search: currentSearch || undefined,
-          ...activeFilters
-        });
-
-        const batch = res.data || [];
-        allRows.push(...batch);
-
-        if (res.pagination) {
-          totalPages = res.pagination.pages;
-        } else {
-          break; // Non-paginated endpoint
-        }
-        page++;
-      }
-
-      if (allRows.length === 0) {
-        notify.warning('No data to export.');
-        return;
-      }
-
-      // Generate CSV string with UTF-8 BOM
-      const headers = config.columns.map(c => `"${c.label.replace(/"/g, '""')}"`).join(',');
-      const rows = allRows.map(row => {
-        return config.columns.map(c => {
-          let val = row[c.key];
-          if (val === null || val === undefined) val = '';
-          return `"${String(val).replace(/"/g, '""')}"`;
-        }).join(',');
-      });
-
-      const csvContent = '\uFEFF' + headers + '\n' + rows.join('\n');
-      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `${config.exportName || 'export'}_${new Date().toISOString().slice(0, 10)}.csv`;
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      URL.revokeObjectURL(url);
-
-      notify.success(`Exported ${allRows.length} rows successfully.`);
-    } catch (err) {
-      notify.error('Export failed: ' + err.message);
     }
   }
 

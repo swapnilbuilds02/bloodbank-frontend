@@ -219,9 +219,13 @@ export default function renderIssueWizard(params, query) {
               : `No units of blood group ${bloodGroup} currently exist in inventory.`
           ),
           h('button', {
-            className: 'btn btn--primary',
-            onClick: () => navigate('/emergency')
-          }, 'Launch Emergency Blood Search')
+            className: 'btn btn--secondary',
+            onClick: () => {
+              currentStep = 1;
+              updateStepper();
+              renderStep1();
+            }
+          }, '← Choose a Different Request')
         ));
         return;
       }

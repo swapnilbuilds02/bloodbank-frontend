@@ -31,12 +31,10 @@ export const PAGE_SIZES = [10, 25, 50, 100];
 export const DEFAULT_SETTINGS = {
   apiBaseUrl: 'http://127.0.0.1:5000/api',
   theme: 'light',
-  density: 'comfortable',
   pageSize: 25,
   expiryAlertDays: 30,
   lowStockThreshold: 2,
-  donorEligibilityDays: 90,
-  reduceMotion: false
+  donorEligibilityDays: 90
 };
 
 export const PHONE_REGEX = /^\+?[0-9]{7,15}$/;
@@ -79,7 +77,5 @@ export const ROUTES = [
   { path: '#/hospitals', title: 'Hospitals', icon: 'hospital', navGroup: 'Network' },
   { path: '#/patients', title: 'Patients', icon: 'bed', navGroup: 'Network' },
   { path: '#/staff', title: 'Staff', icon: 'id-card', navGroup: 'Network' },
-  { path: '#/emergency', title: 'Emergency Search', icon: 'alert-triangle', navGroup: 'Tools' },
-  { path: '#/settings', title: 'Settings', icon: 'settings', navGroup: 'Tools' },
-  { path: '#/styleguide', title: 'Style Guide', icon: 'eye', navGroup: null }
+  { path: '#/settings', title: 'Settings', icon: 'settings', navGroup: 'Tools' }
 ];
