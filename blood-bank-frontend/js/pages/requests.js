@@ -307,6 +307,19 @@ async function renderRequestDetail(requestId) {
                   }
                 }
               }, '✕ Reject')
+            : null,
+          req.request_status === 'Pending' || req.request_status === 'Approved'
+            ? h('button', {
+                className: 'btn btn--secondary btn--sm',
+                onClick: async () => {
+                  const ok = await confirm({ title: 'Cancel Request', message: 'Mark this request as Cancelled?', danger: true });
+                  if (ok) {
+                    await requestsService.update(req.request_id, { request_status: 'Cancelled' });
+                    notify.success('Request marked as Cancelled');
+                    navigate(`/requests/${req.request_id}`);
+                  }
+                }
+              }, 'Cancel Request')
             : null
         )
       )

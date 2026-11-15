@@ -171,7 +171,7 @@ export default function renderIssueWizard(params, query) {
       const bloodGroup = state.request.blood_group;
       const res = await api('/inventory', {
         query: {
-          blood_group: encodeURIComponent(bloodGroup),
+          blood_group: bloodGroup,
           limit: 200
         }
       });

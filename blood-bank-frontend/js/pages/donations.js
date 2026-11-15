@@ -129,7 +129,6 @@ async function openDonationForm(prefillDonorId = null) {
         type: 'searchSelect',
         required: true,
         loadOptions: async (query) => {
-          const res = await lookupsService.getPatients(); // Or donor lookup
           const donors = (await import('../services/donors.js')).default;
           const donorList = await donors.list({ search: query, limit: 10 });
           return (donorList.data || []).map(d => ({
