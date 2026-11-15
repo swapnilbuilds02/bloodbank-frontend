@@ -104,7 +104,7 @@ export default function renderDashboard() {
     }
 
     // 4. Chart: Donation Trends
-    chartsRow.innerHTML = '';
+    chartsRow.replaceChildren();
     const trendsCard = h('div', { className: 'card' });
     chartsRow.appendChild(trendsCard);
 
@@ -115,7 +115,7 @@ export default function renderDashboard() {
     }
 
     // 5. Recent Activity: Donations & Requests
-    recentRow.innerHTML = '';
+    recentRow.replaceChildren();
     const recentDonCard = h('div', { className: 'card' });
     const recentReqCard = h('div', { className: 'card' });
     recentRow.appendChild(recentDonCard);
@@ -137,7 +137,7 @@ export default function renderDashboard() {
   }
 
   function renderNeedsAttention(mount, { bloodData, requestsData, expiredData }) {
-    mount.innerHTML = '';
+    mount.replaceChildren();
     const alerts = [];
 
     const threshold = getSetting('lowStockThreshold') || 2;
@@ -179,7 +179,7 @@ export default function renderDashboard() {
   }
 
   function renderKpis(mount, d) {
-    mount.innerHTML = '';
+    mount.replaceChildren();
     const kpis = [
       { label: 'Total Donors', value: d.total_donors || 0, icon: 'users', link: '#/donors' },
       { label: 'Total Donations', value: d.total_donations || 0, icon: 'syringe', link: '#/donations' },
@@ -205,7 +205,7 @@ export default function renderDashboard() {
   }
 
   function renderBloodTiles(mount, list) {
-    mount.innerHTML = '';
+    mount.replaceChildren();
     const threshold = getSetting('lowStockThreshold') || 2;
 
     BLOOD_GROUPS.forEach(g => {
@@ -238,7 +238,7 @@ export default function renderDashboard() {
   }
 
   function renderTrendsChart(card, data) {
-    card.innerHTML = '';
+    card.replaceChildren();
     const header = h('div', { className: 'card__header' },
       h('h3', { className: 'card__title' }, 'Donation Trends'),
       h('span', { style: { fontSize: 'var(--text-xs)', color: 'var(--color-text-tertiary)' } }, 'Units over time')
@@ -272,7 +272,7 @@ export default function renderDashboard() {
   }
 
   function renderRequestsSummaryChart(card, data) {
-    card.innerHTML = '';
+    card.replaceChildren();
     const header = h('div', { className: 'card__header' },
       h('h3', { className: 'card__title' }, 'Request Statuses'),
       h('span', { style: { fontSize: 'var(--text-xs)', color: 'var(--color-text-tertiary)' } }, 'Overview')
@@ -302,7 +302,7 @@ export default function renderDashboard() {
   }
 
   function renderRecentDonations(card, list) {
-    card.innerHTML = '';
+    card.replaceChildren();
     const header = h('div', { className: 'card__header' },
       h('h3', { className: 'card__title' }, 'Recent Donations'),
       h('a', { href: '#/donations', style: { fontSize: 'var(--text-xs)' } }, 'View All')
@@ -334,7 +334,7 @@ export default function renderDashboard() {
   }
 
   function renderRecentRequests(card, list) {
-    card.innerHTML = '';
+    card.replaceChildren();
     const header = h('div', { className: 'card__header' },
       h('h3', { className: 'card__title' }, 'Recent Requests'),
       h('a', { href: '#/requests', style: { fontSize: 'var(--text-xs)' } }, 'View All')

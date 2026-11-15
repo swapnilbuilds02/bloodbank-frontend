@@ -224,7 +224,7 @@ document.addEventListener('DOMContentLoaded', () => {
   on('route:changed', (route) => {
     const breadcrumbs = document.getElementById('breadcrumbs');
     if (breadcrumbs) {
-      breadcrumbs.innerHTML = '';
+      breadcrumbs.replaceChildren();
       breadcrumbs.appendChild(h('a', { href: '#/dashboard' }, 'Home'));
       breadcrumbs.appendChild(h('span', {}, '/'));
       breadcrumbs.appendChild(h('span', { className: 'current' }, route.title || 'Page'));

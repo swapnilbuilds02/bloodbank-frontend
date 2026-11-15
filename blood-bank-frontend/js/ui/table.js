@@ -138,7 +138,7 @@ export function dataTable(config) {
     abortController = new AbortController();
 
     tableMount.replaceChildren(skeletonTable(5, config.columns.length + (config.rowActions?.length ? 1 : 0)));
-    paginationMount.innerHTML = '';
+    paginationMount.replaceChildren();
 
     // Update chips
     updateFilterChips();
@@ -167,7 +167,7 @@ export function dataTable(config) {
   }
 
   function updateFilterChips() {
-    chipsBar.innerHTML = '';
+    chipsBar.replaceChildren();
     const entries = Object.entries(activeFilters);
     if (entries.length === 0 && !currentSearch) {
       chipsBar.style.display = 'none';

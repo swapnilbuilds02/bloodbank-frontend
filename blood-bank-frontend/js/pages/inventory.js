@@ -264,7 +264,7 @@ async function openInventoryDrawer(item) {
     if (issues.length === 0) {
       target.textContent = 'No issues recorded from this inventory unit yet.';
     } else {
-      target.innerHTML = '';
+      target.replaceChildren();
       const list = h('ul', { style: { listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' } });
       issues.forEach(iss => {
         list.appendChild(h('li', {

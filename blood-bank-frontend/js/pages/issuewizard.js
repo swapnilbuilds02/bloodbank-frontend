@@ -97,7 +97,7 @@ export default function renderIssueWizard(params, query) {
         }
       }
 
-      stepMount.innerHTML = '';
+      stepMount.replaceChildren();
       stepMount.appendChild(h('h2', { style: { fontSize: 'var(--text-xl)', marginBottom: 'var(--space-2)' } }, 'Step 1: Choose Blood Request to Fulfill'));
       stepMount.appendChild(h('p', { style: { color: 'var(--color-text-secondary)', fontSize: 'var(--text-sm)', marginBottom: 'var(--space-4)' } },
         'Displaying active hospital requests requiring matching donor units.'
@@ -192,7 +192,7 @@ export default function renderIssueWizard(params, query) {
       // Sort soonest expiry first (FEFO)
       issuable.sort((a, b) => new Date(a.expiry_date) - new Date(b.expiry_date));
 
-      stepMount.innerHTML = '';
+      stepMount.replaceChildren();
       stepMount.appendChild(h('div', { style: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--space-4)' } },
         h('div', {},
           h('h2', { style: { fontSize: 'var(--text-xl)' } }, `Step 2: Choose Stock for ${bloodGroup} Patient`),
@@ -301,7 +301,7 @@ export default function renderIssueWizard(params, query) {
     const remainingForReq = state.request.units_required - (state.request.units_issued || 0);
     const maxIssuable = Math.min(state.stock.units_available, remainingForReq);
 
-    stepMount.innerHTML = '';
+    stepMount.replaceChildren();
     stepMount.appendChild(h('div', { style: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--space-4)' } },
       h('h2', { style: { fontSize: 'var(--text-xl)' } }, 'Step 3: Verification & Authorization'),
       h('button', {
@@ -418,7 +418,7 @@ export default function renderIssueWizard(params, query) {
 
   // --- Success Screen & Slip Print ---
   function renderSuccessScreen() {
-    stepMount.innerHTML = '';
+    stepMount.replaceChildren();
 
     const slip = h('div', { className: 'issue-slip' },
       h('div', { className: 'issue-slip__title' }, 'BLOOD ISSUE & TRANSFUSION SLIP'),

@@ -54,7 +54,7 @@ export function searchableSelect({ id, name, value = null, placeholder = 'Select
   });
 
   function renderDropdown(list) {
-    dropdown.innerHTML = '';
+    dropdown.replaceChildren();
     if (list.length === 0) {
       dropdown.appendChild(h('div', { style: { padding: 'var(--space-2) var(--space-3)', color: 'var(--color-text-tertiary)', fontSize: 'var(--text-xs)' } }, 'No matches found'));
       return;
