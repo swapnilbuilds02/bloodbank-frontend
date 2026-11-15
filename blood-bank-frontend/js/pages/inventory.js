@@ -150,22 +150,22 @@ async function loadSummaryStrip(mount) {
     const d = res.data;
     if (!d) return;
 
-    mount.innerHTML = `
-      <div class="card__body" style="display: flex; gap: var(--space-6); justify-content: space-around; flex-wrap: wrap;">
-        <div>
-          <span class="stat-card__label">Total Stock Units</span>
-          <div style="font-size: var(--text-2xl); font-weight: bold;">${d.total_units || 0}</div>
-        </div>
-        <div>
-          <span class="stat-card__label">Usable &amp; Safe</span>
-          <div style="font-size: var(--text-2xl); font-weight: bold; color: var(--color-success);">${d.usable_units || 0}</div>
-        </div>
-        <div>
-          <span class="stat-card__label">Expired Stock</span>
-          <div style="font-size: var(--text-2xl); font-weight: bold; color: var(--color-danger);">${d.expired_units || 0}</div>
-        </div>
-      </div>
-    `;
+    mount.replaceChildren(
+      h('div', { className: 'card__body', style: { display: 'flex', gap: 'var(--space-6)', justifyContent: 'space-around', flexWrap: 'wrap' } },
+        h('div', {},
+          h('span', { className: 'stat-card__label' }, 'Total Stock Units'),
+          h('div', { style: { fontSize: 'var(--text-2xl)', fontWeight: 'bold' } }, String(d.total_units || 0))
+        ),
+        h('div', {},
+          h('span', { className: 'stat-card__label' }, 'Usable & Safe'),
+          h('div', { style: { fontSize: 'var(--text-2xl)', fontWeight: 'bold', color: 'var(--color-success)' } }, String(d.usable_units || 0))
+        ),
+        h('div', {},
+          h('span', { className: 'stat-card__label' }, 'Expired Stock'),
+          h('div', { style: { fontSize: 'var(--text-2xl)', fontWeight: 'bold', color: 'var(--color-danger)' } }, String(d.expired_units || 0))
+        )
+      )
+    );
   } catch {
     mount.style.display = 'none';
   }

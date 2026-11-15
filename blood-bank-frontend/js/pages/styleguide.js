@@ -5,91 +5,78 @@
  */
 
 import { badge, requestStatusBadge, urgencyBadge, testStatusBadge, expiryBadge, donationStatusBadge, bloodGroupBadge } from '../ui/badge.js';
-import { skeleton, skeletonTable } from '../ui/skeleton.js';
+import { skeletonTable } from '../ui/skeleton.js';
+import { h } from '../core/dom.js';
 
 export default function render() {
-  const container = document.createElement('div');
+  const container = h('div', {});
 
-  const header = document.createElement('div');
-  header.className = 'page-header';
-  header.innerHTML = `
-    <div>
-      <h1 class="page-title">Design System &amp; Component Styleguide</h1>
-      <p class="page-subtitle">Interactive catalogue of design tokens, components, accessibility tests, and contrast verification.</p>
-    </div>
-  `;
+  const header = h('div', { className: 'page-header' },
+    h('div', {},
+      h('h1', { className: 'page-title' }, 'Design System & Component Styleguide'),
+      h('p', { className: 'page-subtitle' }, 'Interactive catalogue of design tokens, components, accessibility tests, and contrast verification.')
+    )
+  );
   container.appendChild(header);
 
   // Section 1: Buttons
-  const btnSection = document.createElement('div');
-  btnSection.className = 'card';
-  btnSection.style.marginBottom = 'var(--space-6)';
-  btnSection.innerHTML = `
-    <div class="card__header"><h2 class="card__title">Buttons</h2></div>
-    <div class="card__body" style="display: flex; gap: var(--space-3); flex-wrap: wrap;">
-      <button class="btn btn--primary">Primary Button</button>
-      <button class="btn btn--secondary">Secondary Button</button>
-      <button class="btn btn--danger">Danger Button</button>
-      <button class="btn btn--ghost">Ghost Button</button>
-      <button class="btn btn--primary btn--sm">Small Button</button>
-      <button class="btn btn--primary btn--lg">Large Button</button>
-      <button class="btn btn--primary" disabled>Disabled Button</button>
-    </div>
-  `;
+  const btnSection = h('div', { className: 'card', style: { marginBottom: 'var(--space-6)' } },
+    h('div', { className: 'card__header' }, h('h2', { className: 'card__title' }, 'Buttons')),
+    h('div', { className: 'card__body', style: { display: 'flex', gap: 'var(--space-3)', flexWrap: 'wrap' } },
+      h('button', { className: 'btn btn--primary' }, 'Primary Button'),
+      h('button', { className: 'btn btn--secondary' }, 'Secondary Button'),
+      h('button', { className: 'btn btn--danger' }, 'Danger Button'),
+      h('button', { className: 'btn btn--ghost' }, 'Ghost Button'),
+      h('button', { className: 'btn btn--primary btn--sm' }, 'Small Button'),
+      h('button', { className: 'btn btn--primary btn--lg' }, 'Large Button'),
+      h('button', { className: 'btn btn--primary', disabled: true }, 'Disabled Button')
+    )
+  );
   container.appendChild(btnSection);
 
   // Section 2: Badges
-  const badgeSection = document.createElement('div');
-  badgeSection.className = 'card';
-  badgeSection.style.marginBottom = 'var(--space-6)';
-  badgeSection.innerHTML = `
-    <div class="card__header"><h2 class="card__title">Badges &amp; Status Indicators</h2></div>
-    <div class="card__body" id="styleguide-badges" style="display: flex; gap: var(--space-3); flex-wrap: wrap; align-items: center;"></div>
-  `;
+  const badgeBox = h('div', { style: { display: 'flex', gap: 'var(--space-3)', flexWrap: 'wrap', alignItems: 'center' } },
+    requestStatusBadge('Pending'),
+    requestStatusBadge('Approved'),
+    requestStatusBadge('Fulfilled'),
+    requestStatusBadge('Rejected'),
+    urgencyBadge('Low'),
+    urgencyBadge('Normal'),
+    urgencyBadge('High'),
+    urgencyBadge('Critical'),
+    testStatusBadge('Safe'),
+    testStatusBadge('Unsafe'),
+    testStatusBadge(null),
+    expiryBadge('valid'),
+    expiryBadge('expiring_soon', 12),
+    expiryBadge('expired'),
+    donationStatusBadge('Accepted'),
+    donationStatusBadge('Deferred')
+  );
+
+  const badgeSection = h('div', { className: 'card', style: { marginBottom: 'var(--space-6)' } },
+    h('div', { className: 'card__header' }, h('h2', { className: 'card__title' }, 'Badges & Status Indicators')),
+    h('div', { className: 'card__body' }, badgeBox)
+  );
   container.appendChild(badgeSection);
 
-  const badgeBox = badgeSection.querySelector('#styleguide-badges');
-  badgeBox.appendChild(requestStatusBadge('Pending'));
-  badgeBox.appendChild(requestStatusBadge('Approved'));
-  badgeBox.appendChild(requestStatusBadge('Fulfilled'));
-  badgeBox.appendChild(requestStatusBadge('Rejected'));
-  badgeBox.appendChild(urgencyBadge('Low'));
-  badgeBox.appendChild(urgencyBadge('Normal'));
-  badgeBox.appendChild(urgencyBadge('High'));
-  badgeBox.appendChild(urgencyBadge('Critical'));
-  badgeBox.appendChild(testStatusBadge('Safe'));
-  badgeBox.appendChild(testStatusBadge('Unsafe'));
-  badgeBox.appendChild(testStatusBadge(null));
-  badgeBox.appendChild(expiryBadge('valid'));
-  badgeBox.appendChild(expiryBadge('expiring_soon', 12));
-  badgeBox.appendChild(expiryBadge('expired'));
-  badgeBox.appendChild(donationStatusBadge('Accepted'));
-  badgeBox.appendChild(donationStatusBadge('Deferred'));
-
   // Section 3: Blood Group Chips
-  const bloodSection = document.createElement('div');
-  bloodSection.className = 'card';
-  bloodSection.style.marginBottom = 'var(--space-6)';
-  bloodSection.innerHTML = `
-    <div class="card__header"><h2 class="card__title">Blood Group Chips</h2></div>
-    <div class="card__body" id="styleguide-blood-chips" style="display: flex; gap: var(--space-3); flex-wrap: wrap;"></div>
-  `;
+  const bloodBox = h('div', { style: { display: 'flex', gap: 'var(--space-3)', flexWrap: 'wrap' } },
+    ...['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'].map(g => bloodGroupBadge(g))
+  );
+
+  const bloodSection = h('div', { className: 'card', style: { marginBottom: 'var(--space-6)' } },
+    h('div', { className: 'card__header' }, h('h2', { className: 'card__title' }, 'Blood Group Chips')),
+    h('div', { className: 'card__body' }, bloodBox)
+  );
   container.appendChild(bloodSection);
 
-  const bloodBox = bloodSection.querySelector('#styleguide-blood-chips');
-  ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'].forEach(g => {
-    bloodBox.appendChild(bloodGroupBadge(g));
-  });
-
   // Section 4: Skeleton Loaders
-  const skeletonSection = document.createElement('div');
-  skeletonSection.className = 'card';
-  skeletonSection.innerHTML = `
-    <div class="card__header"><h2 class="card__title">Skeleton Placeholder Loaders</h2></div>
-    <div class="card__body" id="styleguide-skeletons"></div>
-  `;
+  const skeletonSection = h('div', { className: 'card' },
+    h('div', { className: 'card__header' }, h('h2', { className: 'card__title' }, 'Skeleton Placeholder Loaders')),
+    h('div', { className: 'card__body' }, skeletonTable(3, 3))
+  );
   container.appendChild(skeletonSection);
-  skeletonSection.querySelector('#styleguide-skeletons').appendChild(skeletonTable(3, 3));
 
   return container;
 }
