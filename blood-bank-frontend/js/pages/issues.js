@@ -89,7 +89,7 @@ function openSlipDrawer(row) {
       h('div', { className: 'issue-slip__row' }, h('span', {}, 'Stock Inventory:'), h('span', {}, `#${row.inventory_id}`)),
       h('div', { className: 'issue-slip__row' }, h('span', {}, 'Issuing Staff:'), h('span', {}, row.staff_name || `Staff #${row.staff_id}`)),
       h('div', { className: 'issue-slip__disclaimer', style: { marginTop: 'var(--space-4)' } },
-        'Academic project — not for clinical use.'
+        'Blood Bank & Donor Management System'
       )
     ),
     h('button', {

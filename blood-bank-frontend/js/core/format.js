@@ -1,5 +1,5 @@
 /**
- * core/format.js — Clinical and domain-specific formatters.
+ * core/format.js — Domain-specific formatters.
  * Strictly avoids new Date(str).toISOString() to prevent timezone-shift bugs.
  * @module core/format
  */

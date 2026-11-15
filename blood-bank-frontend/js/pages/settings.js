@@ -109,10 +109,7 @@ export default function renderSettings() {
     h('div', { className: 'card__body' },
       h('p', { style: { fontSize: 'var(--text-sm)' } },
         h('strong', {}, PROJECT_INFO.name),
-        ` — Version ${PROJECT_INFO.version}. ${PROJECT_INFO.description}`
-      ),
-      h('p', { style: { fontSize: 'var(--text-xs)', color: 'var(--color-text-tertiary)', marginTop: 'var(--space-2)' } },
-        'Academic project — not for clinical use.'
+        ` — Version ${PROJECT_INFO.version}`
       )
     )
   );

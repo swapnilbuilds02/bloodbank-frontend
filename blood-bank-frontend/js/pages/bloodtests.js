@@ -1,6 +1,6 @@
 /**
  * pages/bloodtests.js — Laboratory blood testing and safety verification.
- * Enforces strict clinical safety rule: Overall status is Safe ONLY IF HIV, Hepatitis, and Malaria are all Negative.
+ * Enforces safety rule: Overall status is Safe ONLY IF HIV, Hepatitis, and Malaria are all Negative.
  * @module pages/bloodtests
  */
 
@@ -33,12 +33,12 @@ export default function renderBloodTests(params, query) {
   );
   container.appendChild(header);
 
-  // Clinical Rule Banner
+  // Safety Rule Banner
   const banner = h('div', {
     className: 'alert alert--info',
     style: { marginBottom: 'var(--space-4)' }
   },
-    h('span', { style: { fontWeight: 'bold' } }, 'Clinical Protocol:'),
+    h('span', { style: { fontWeight: 'bold' } }, 'Safety Protocol:'),
     h('span', {}, 'Only blood units whose laboratory test is verified "Safe" can be issued to hospitals and patients. A single positive result flags the donation as Unsafe.')
   );
   container.appendChild(banner);

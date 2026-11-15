@@ -169,7 +169,7 @@ export default function renderDashboard() {
           backgroundColor: 'var(--color-surface)'
         }
       },
-        h('h3', { style: { fontSize: 'var(--text-sm)', fontWeight: 'bold', color: 'var(--color-danger)', marginBottom: 'var(--space-2)' } }, '🚨 Triage & Needs Attention:'),
+        h('h3', { style: { fontSize: 'var(--text-sm)', fontWeight: 'bold', color: 'var(--color-danger)', marginBottom: 'var(--space-2)' } }, 'Needs attention:'),
         h('ul', { style: { listStyle: 'disc', paddingLeft: 'var(--space-5)', fontSize: 'var(--text-xs)', display: 'flex', flexDirection: 'column', gap: '4px' } },
           ...alerts.slice(0, 4).map(a => h('li', { style: { color: a.type === 'danger' ? 'var(--color-danger)' : 'var(--color-warning)' } }, a.msg))
         )

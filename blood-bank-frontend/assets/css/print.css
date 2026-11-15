@@ -1,6 +1,6 @@
 /**
  * print.css — Stylesheet exclusively applied during print operations.
- * Renders clinical issue slips cleanly while hiding all navigation chrome.
+ * Renders issue slips cleanly while hiding all navigation chrome.
  */
 
 @media print {

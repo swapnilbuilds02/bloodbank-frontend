@@ -58,10 +58,7 @@ export const MAX_PAGE_LIMIT = 200;
 
 export const PROJECT_INFO = {
   name: 'Blood Bank & Donor Management System',
-  version: '1.0.0',
-  description: 'Academic DBMS Course Project - Full Frontend',
-  team: ['Student Name - Roll Number'],
-  course: 'Database Management Systems Lab'
+  version: '1.0.0'
 };
 
 export const ROUTES = [
